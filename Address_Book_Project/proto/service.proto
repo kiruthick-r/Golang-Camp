@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option go_package="Address_Book_Project/proto";
+
+package proto;
+
+message Address {
+  string username = 1;
+  string address = 2;
+  string phone = 3;
+}
+
+message GetUser {
+  string username=1;
+}
+
+message GetAddress {
+  string address=1;
+}
+
+message GetPhone {
+  string phone=1;
+}
+
+message Empty{}
+
+service Service {
+  rpc Add(Address) returns (Address);
+  rpc GetAllData(Empty) returns (stream Address);
+  rpc GetByUsername(GetUser) returns (Address);
+  rpc GetByAddress(GetAddress) returns (Address);
+  rpc GetByPhone(GetPhone) returns (Address);
+  rpc Update(Address) returns (Address);
+  rpc Delete(GetUser) returns (Address);
+}
