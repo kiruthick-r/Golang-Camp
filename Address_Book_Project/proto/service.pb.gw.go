@@ -32,7 +32,7 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 func request_Service_AddUser_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddRequest
+	var protoReq AddUserRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -49,7 +49,7 @@ func request_Service_AddUser_0(ctx context.Context, marshaler runtime.Marshaler,
 }
 
 func local_request_Service_AddUser_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddRequest
+	var protoReq AddUserRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -66,7 +66,7 @@ func local_request_Service_AddUser_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func request_Service_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRequest
+	var protoReq GetUserRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -92,7 +92,7 @@ func request_Service_GetUser_0(ctx context.Context, marshaler runtime.Marshaler,
 }
 
 func local_request_Service_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRequest
+	var protoReq GetUserRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -118,7 +118,7 @@ func local_request_Service_GetUser_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func request_Service_UserList_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+	var protoReq UserListRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.UserList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -127,7 +127,7 @@ func request_Service_UserList_0(ctx context.Context, marshaler runtime.Marshaler
 }
 
 func local_request_Service_UserList_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+	var protoReq UserListRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := server.UserList(ctx, &protoReq)
@@ -136,7 +136,7 @@ func local_request_Service_UserList_0(ctx context.Context, marshaler runtime.Mar
 }
 
 func request_Service_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateRequest
+	var protoReq UpdateUserRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -153,7 +153,7 @@ func request_Service_UpdateUser_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func local_request_Service_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateRequest
+	var protoReq UpdateUserRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -170,7 +170,7 @@ func local_request_Service_UpdateUser_0(ctx context.Context, marshaler runtime.M
 }
 
 func request_Service_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteRequest
+	var protoReq DeleteUserRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -196,7 +196,7 @@ func request_Service_DeleteUser_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func local_request_Service_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteRequest
+	var protoReq DeleteUserRequest
 	var metadata runtime.ServerMetadata
 
 	var (

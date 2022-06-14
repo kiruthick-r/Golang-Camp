@@ -19,10 +19,6 @@ var (
 	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:4040", "gRPC server endpoint")
 )
 
-type server struct {
-	proto.UnimplementedServiceServer
-}
-
 func main() {
 	service.InitAddress()
 	go func() {
@@ -38,45 +34,9 @@ func main() {
 	}
 
 	srv := grpc.NewServer()
-	proto.RegisterServiceServer(srv, &server{})
+	proto.RegisterServiceServer(srv, &service.Server{})
 
 	if e := srv.Serve(listener); e != nil {
 		panic(e)
 	}
-}
-
-func (s *server) AddUser(ctx context.Context, request *proto.AddRequest) (*proto.AddResponse, error) {
-	err := request.Validate()
-	if err != nil {
-		return nil, err
-	}
-	return service.Adduser(request), nil
-}
-
-func (s *server) GetUser(ctx context.Context, request *proto.GetRequest) (*proto.GetResponse, error) {
-	err := request.Validate()
-	if err != nil {
-		return nil, err
-	}
-	return service.Getuser(request), nil
-}
-
-func (s *server) UserList(ctx context.Context, request *proto.Empty) (*proto.GetListResponse, error) {
-	return service.Userlist(), nil
-}
-
-func (s *server) UpdateUser(ctx context.Context, request *proto.UpdateRequest) (*proto.UpdateResponse, error) {
-	err := request.Validate()
-	if err != nil {
-		return nil, err
-	}
-	return service.Updateuser(request), nil
-}
-
-func (s *server) DeleteUser(ctx context.Context, request *proto.DeleteRequest) (*proto.DeleteResponse, error) {
-	err := request.Validate()
-	if err != nil {
-		return nil, err
-	}
-	return service.Deleteuser(request), nil
 }

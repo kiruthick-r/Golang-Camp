@@ -1,53 +1,53 @@
 package service
 
-import "Address_Book_Project/proto"
+import (
+	"Address_Book_Project/proto"
+	"sync"
+)
 
-var address = make(map[string]*proto.User)
+var syncMap sync.Map
 
 func InitAddress() {
 	address1 := &proto.User{Username: "kiruthick", Address: "india", Phone: "1111111111"}
 	address2 := &proto.User{Username: "kiruthick1", Address: "usa", Phone: "2222222222"}
 	address3 := &proto.User{Username: "kiruthick2", Address: "canada", Phone: "3333333333"}
-	address[address1.Username] = address1
-	address[address2.Username] = address2
-	address[address3.Username] = address3
+	syncMap.Store(address1.Username, address1)
+	syncMap.Store(address2.Username, address2)
+	syncMap.Store(address3.Username, address3)
 }
 
-func Adduser(request *proto.AddRequest) *proto.AddResponse {
-	a, b, c := request.User.GetUsername(), request.User.GetAddress(), request.User.GetPhone()
-	addressServer := &proto.User{Username: a, Address: b, Phone: c}
-	address[addressServer.Username] = addressServer
-	res := &proto.AddResponse{User: addressServer}
+func Adduser(request *proto.AddUserRequest) *proto.AddUserResponse {
+	syncMap.Store(request.User.GetUsername(), request.User)
+	res := &proto.AddUserResponse{User: request.User}
 	return res
 }
 
-func Getuser(request *proto.GetRequest) *proto.GetResponse {
-	var addressServer *proto.User = address[request.GetUsername()]
-	res := &proto.GetResponse{User: addressServer}
+func Getuser(request *proto.GetUserRequest) *proto.GetUserResponse {
+	data, _ := syncMap.Load(request.GetUsername())
+	res := &proto.GetUserResponse{User: data.(*proto.User)}
 	return res
 }
 
-func Userlist() *proto.GetListResponse {
-	res := &proto.GetListResponse{}
+func Userlist() *proto.UserListResponse {
 	var list []*proto.User
-	for _, address1 := range address {
-		list = append(list, address1)
-	}
+	syncMap.Range(func(key, value interface{}) bool {
+		list = append(list, value.(*proto.User))
+		return true
+	})
+	res := &proto.UserListResponse{}
 	res.User = list
 	return res
 }
 
-func Updateuser(request *proto.UpdateRequest) *proto.UpdateResponse {
-	a, b, c := request.User.GetUsername(), request.User.GetAddress(), request.User.GetPhone()
-	addressServer := &proto.User{Username: a, Address: b, Phone: c}
-	address[a] = addressServer
-	res := &proto.UpdateResponse{User: addressServer}
+func Updateuser(request *proto.UpdateUserRequest) *proto.UpdateUserResponse {
+	syncMap.Store(request.User.GetUsername(), request.User)
+	data, _ := syncMap.Load(request.User.GetUsername())
+	res := &proto.UpdateUserResponse{User: data.(*proto.User)}
 	return res
 }
 
-func Deleteuser(request *proto.DeleteRequest) *proto.DeleteResponse {
-	addressServer := &proto.User{Username: address[request.GetUsername()].Username, Address: address[request.GetUsername()].Address, Phone: address[request.GetUsername()].Phone}
-	delete(address, request.GetUsername())
-	res := &proto.DeleteResponse{User: addressServer}
+func Deleteuser(request *proto.DeleteUserRequest) *proto.DeleteUserResponse {
+	data, _ := syncMap.LoadAndDelete(request.GetUsername())
+	res := &proto.DeleteUserResponse{User: data.(*proto.User)}
 	return res
 }

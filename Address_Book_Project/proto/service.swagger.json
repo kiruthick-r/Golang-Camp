@@ -23,7 +23,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoGetListResponse"
+              "$ref": "#/definitions/protoUserListResponse"
             }
           },
           "default": {
@@ -43,7 +43,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoAddResponse"
+              "$ref": "#/definitions/protoAddUserResponse"
             }
           },
           "default": {
@@ -59,7 +59,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/protoAddRequest"
+              "$ref": "#/definitions/protoAddUserRequest"
             }
           }
         ],
@@ -73,7 +73,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoUpdateResponse"
+              "$ref": "#/definitions/protoUpdateUserResponse"
             }
           },
           "default": {
@@ -89,7 +89,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/protoUpdateRequest"
+              "$ref": "#/definitions/protoUpdateUserRequest"
             }
           }
         ],
@@ -105,7 +105,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoGetResponse"
+              "$ref": "#/definitions/protoGetUserResponse"
             }
           },
           "default": {
@@ -133,7 +133,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoDeleteResponse"
+              "$ref": "#/definitions/protoDeleteUserResponse"
             }
           },
           "default": {
@@ -158,7 +158,7 @@
     }
   },
   "definitions": {
-    "protoAddRequest": {
+    "protoAddUserRequest": {
       "type": "object",
       "properties": {
         "user": {
@@ -166,7 +166,7 @@
         }
       }
     },
-    "protoAddResponse": {
+    "protoAddUserResponse": {
       "type": "object",
       "properties": {
         "user": {
@@ -174,7 +174,7 @@
         }
       }
     },
-    "protoDeleteResponse": {
+    "protoDeleteUserResponse": {
       "type": "object",
       "properties": {
         "user": {
@@ -182,18 +182,7 @@
         }
       }
     },
-    "protoGetListResponse": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/protoUser"
-          }
-        }
-      }
-    },
-    "protoGetResponse": {
+    "protoGetUserResponse": {
       "type": "object",
       "properties": {
         "user": {
@@ -201,7 +190,7 @@
         }
       }
     },
-    "protoUpdateRequest": {
+    "protoUpdateUserRequest": {
       "type": "object",
       "properties": {
         "user": {
@@ -209,7 +198,7 @@
         }
       }
     },
-    "protoUpdateResponse": {
+    "protoUpdateUserResponse": {
       "type": "object",
       "properties": {
         "user": {
@@ -228,6 +217,17 @@
         },
         "phone": {
           "type": "string"
+        }
+      }
+    },
+    "protoUserListResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoUser"
+          }
         }
       }
     },

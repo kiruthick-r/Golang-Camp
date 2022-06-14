@@ -13,68 +13,68 @@ message User {
   string phone = 3 [(validate.rules).string = {min_len: 10, max_len: 10}];
 }
 
-message AddRequest {
+message AddUserRequest {
   User user = 1;
 }
 
-message AddResponse {
+message AddUserResponse {
   User user = 1;
 }
 
-message GetRequest {
+message GetUserRequest {
   string username = 1 [(validate.rules).string = {min_len: 3, max_len: 10}];
 }
 
-message GetResponse {
+message GetUserResponse {
   User user = 1;
 }
 
-message Empty {}
+message UserListRequest {}
 
-message GetListResponse {
+message UserListResponse {
   repeated User user = 1;
 }
 
-message UpdateRequest {
+message UpdateUserRequest {
   User user = 1;
 }
 
-message UpdateResponse {
+message UpdateUserResponse {
   User user = 1;
 }
 
-message DeleteRequest {
+message DeleteUserRequest {
   string username = 1 [(validate.rules).string = {min_len: 3, max_len: 10}];
 }
 
-message DeleteResponse {
+message DeleteUserResponse {
   User user = 1;
 }
 
 service Service {
-  rpc AddUser(AddRequest) returns (AddResponse){
+  rpc AddUser(AddUserRequest) returns (AddUserResponse){
     option (google.api.http) = { 
       post : "/user" 
       body : "*"
     };
   }
-  rpc GetUser(GetRequest) returns (GetResponse){
+  rpc GetUser(GetUserRequest) returns (GetUserResponse){
     option (google.api.http) = { 
       get : "/user/{username}" 
     };
   }
-  rpc UserList(Empty) returns (GetListResponse){
+  rpc UserList(UserListRequest) returns (UserListResponse){
     option (google.api.http) = { 
       get : "/user" 
     };
   }
-  rpc UpdateUser(UpdateRequest) returns (UpdateResponse){
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
     option (google.api.http) = { 
       put: "/user"
       body : "*" 
     };
   }
-  rpc DeleteUser(DeleteRequest) returns (DeleteResponse){
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse){
     option (google.api.http) = { 
       delete: "/user/{username}" 
     };
