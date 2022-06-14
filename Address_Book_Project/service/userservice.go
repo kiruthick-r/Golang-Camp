@@ -16,19 +16,19 @@ func InitAddress() {
 	syncMap.Store(address3.Username, address3)
 }
 
-func Adduser(request *proto.AddUserRequest) *proto.AddUserResponse {
+func addUser(request *proto.AddUserRequest) *proto.AddUserResponse {
 	syncMap.Store(request.User.GetUsername(), request.User)
 	res := &proto.AddUserResponse{User: request.User}
 	return res
 }
 
-func Getuser(request *proto.GetUserRequest) *proto.GetUserResponse {
+func getUser(request *proto.GetUserRequest) *proto.GetUserResponse {
 	data, _ := syncMap.Load(request.GetUsername())
 	res := &proto.GetUserResponse{User: data.(*proto.User)}
 	return res
 }
 
-func Userlist() *proto.UserListResponse {
+func userList() *proto.UserListResponse {
 	var list []*proto.User
 	syncMap.Range(func(key, value interface{}) bool {
 		list = append(list, value.(*proto.User))
@@ -39,14 +39,14 @@ func Userlist() *proto.UserListResponse {
 	return res
 }
 
-func Updateuser(request *proto.UpdateUserRequest) *proto.UpdateUserResponse {
+func updateUser(request *proto.UpdateUserRequest) *proto.UpdateUserResponse {
 	syncMap.Store(request.User.GetUsername(), request.User)
 	data, _ := syncMap.Load(request.User.GetUsername())
 	res := &proto.UpdateUserResponse{User: data.(*proto.User)}
 	return res
 }
 
-func Deleteuser(request *proto.DeleteUserRequest) *proto.DeleteUserResponse {
+func deleteUser(request *proto.DeleteUserRequest) *proto.DeleteUserResponse {
 	data, _ := syncMap.LoadAndDelete(request.GetUsername())
 	res := &proto.DeleteUserResponse{User: data.(*proto.User)}
 	return res

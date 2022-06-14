@@ -14,7 +14,7 @@ func (s *Server) AddUser(ctx context.Context, request *proto.AddUserRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	return Adduser(request), nil
+	return addUser(request), nil
 }
 
 func (s *Server) GetUser(ctx context.Context, request *proto.GetUserRequest) (*proto.GetUserResponse, error) {
@@ -22,11 +22,11 @@ func (s *Server) GetUser(ctx context.Context, request *proto.GetUserRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	return Getuser(request), nil
+	return getUser(request), nil
 }
 
 func (s *Server) UserList(ctx context.Context, request *proto.UserListRequest) (*proto.UserListResponse, error) {
-	return Userlist(), nil
+	return userList(), nil
 }
 
 func (s *Server) UpdateUser(ctx context.Context, request *proto.UpdateUserRequest) (*proto.UpdateUserResponse, error) {
@@ -34,7 +34,7 @@ func (s *Server) UpdateUser(ctx context.Context, request *proto.UpdateUserReques
 	if err != nil {
 		return nil, err
 	}
-	return Updateuser(request), nil
+	return updateUser(request), nil
 }
 
 func (s *Server) DeleteUser(ctx context.Context, request *proto.DeleteUserRequest) (*proto.DeleteUserResponse, error) {
@@ -42,5 +42,5 @@ func (s *Server) DeleteUser(ctx context.Context, request *proto.DeleteUserReques
 	if err != nil {
 		return nil, err
 	}
-	return Deleteuser(request), nil
+	return deleteUser(request), nil
 }
