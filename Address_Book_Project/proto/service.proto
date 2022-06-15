@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+option go_package="Address_Book_Project/proto";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+package proto;
+
+message User {
+  string username = 1 [(validate.rules).string = {min_len: 3, max_len: 10}];
+  string address = 2 [(validate.rules).string = {min_len: 3, max_len: 20}];
+  string phone = 3 [(validate.rules).string = {min_len: 10, max_len: 10}];
+}
+
+message AddUserRequest {
+  User user = 1;
+}
+
+message AddUserResponse {
+  User user = 1;
+}
+
+message GetUserRequest {
+  string username = 1 [(validate.rules).string = {min_len: 3, max_len: 10}];
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message UserListRequest {}
+
+message UserListResponse {
+  repeated User user = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
+
+message DeleteUserRequest {
+  string username = 1 [(validate.rules).string = {min_len: 3, max_len: 10}];
+}
+
+message DeleteUserResponse {
+  User user = 1;
+}
+
+service Service {
+  rpc AddUser(AddUserRequest) returns (AddUserResponse){
+    option (google.api.http) = { 
+      post : "/user" 
+      body : "*"
+    };
+  }
+  rpc GetUser(GetUserRequest) returns (GetUserResponse){
+    option (google.api.http) = { 
+      get : "/user/{username}" 
+    };
+  }
+  rpc UserList(UserListRequest) returns (UserListResponse){
+    option (google.api.http) = { 
+      get : "/user" 
+    };
+  }
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
+    option (google.api.http) = { 
+      put: "/user"
+      body : "*" 
+    };
+  }
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse){
+    option (google.api.http) = { 
+      delete: "/user/{username}" 
+    };
+  }
+}
