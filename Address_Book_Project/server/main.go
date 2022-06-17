@@ -20,7 +20,6 @@ var (
 )
 
 func main() {
-	service.InitAddress()
 	go func() {
 		mux := runtime.NewServeMux()
 		opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
