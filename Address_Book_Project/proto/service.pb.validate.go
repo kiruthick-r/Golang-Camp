@@ -56,6 +56,8 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ID
+
 	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 10 {
 		err := UserValidationError{
 			field:  "Username",
@@ -447,16 +449,7 @@ func (m *GetUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 10 {
-		err := GetUserRequestValidationError{
-			field:  "Username",
-			reason: "value length must be between 3 and 10 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ID
 
 	if len(errors) > 0 {
 		return GetUserRequestMultiError(errors)
@@ -1183,16 +1176,7 @@ func (m *DeleteUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 10 {
-		err := DeleteUserRequestValidationError{
-			field:  "Username",
-			reason: "value length must be between 3 and 10 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for ID
 
 	if len(errors) > 0 {
 		return DeleteUserRequestMultiError(errors)

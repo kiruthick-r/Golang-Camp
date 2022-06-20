@@ -16,4 +16,12 @@
 
     Generates service,pb.validate.go
 	protoc -I . --go_opt=paths=source_relative --go_out=. --validate_out="lang=go:.." proto/service.proto
-7. Run Server file (main.go)
+7. Install Docker
+8. Install TablePlus Database GUI 
+9. Create docker-compose.yml file
+10. Create db.go file
+11. Create Dockerfile
+12. Get GORM
+13. Run ( docker compose up -d )
+14. Service and Database in Docker Container starts 
+15. Test with Postman

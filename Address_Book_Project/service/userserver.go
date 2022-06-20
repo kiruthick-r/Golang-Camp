@@ -3,6 +3,7 @@ package service
 import (
 	"Address_Book_Project/proto"
 	"context"
+	"errors"
 )
 
 type Server struct {
@@ -10,6 +11,9 @@ type Server struct {
 }
 
 func (s *Server) AddUser(ctx context.Context, request *proto.AddUserRequest) (*proto.AddUserResponse, error) {
+	if request.User.GetUsername() == "" || request.User.Address == "" || request.User.Phone == "" {
+		return nil, errors.New("values cannot be empty")
+	}
 	err := request.Validate()
 	if err != nil {
 		return nil, err
@@ -18,6 +22,9 @@ func (s *Server) AddUser(ctx context.Context, request *proto.AddUserRequest) (*p
 }
 
 func (s *Server) GetUser(ctx context.Context, request *proto.GetUserRequest) (*proto.GetUserResponse, error) {
+	if request.GetID() == "" {
+		return nil, errors.New("username cannot be empty")
+	}
 	err := request.Validate()
 	if err != nil {
 		return nil, err
@@ -30,6 +37,9 @@ func (s *Server) UserList(ctx context.Context, request *proto.UserListRequest) (
 }
 
 func (s *Server) UpdateUser(ctx context.Context, request *proto.UpdateUserRequest) (*proto.UpdateUserResponse, error) {
+	if request.User.GetUsername() == "" || request.User.Address == "" || request.User.Phone == "" {
+		return nil, errors.New("values cannot be empty")
+	}
 	err := request.Validate()
 	if err != nil {
 		return nil, err
@@ -38,6 +48,9 @@ func (s *Server) UpdateUser(ctx context.Context, request *proto.UpdateUserReques
 }
 
 func (s *Server) DeleteUser(ctx context.Context, request *proto.DeleteUserRequest) (*proto.DeleteUserResponse, error) {
+	if request.GetID() == "" {
+		return nil, errors.New("username cannot be empty")
+	}
 	err := request.Validate()
 	if err != nil {
 		return nil, err

@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: ./
+    volumes:
+      - .:/app
+    ports:
+      - 8081:8081
+  database:
+    container_name: database
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=crud
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data 
+
+volumes:
+  db:
+  

@@ -5,4 +5,4 @@ create:
 	protoc -I . --go_opt=paths=source_relative --go_out=. --validate_out="lang=go:.." proto/service.proto
 
 run:
-	go run server/main.go
+	go run main.go
