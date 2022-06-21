@@ -56,7 +56,7 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 10 {
 		err := UserValidationError{
@@ -449,7 +449,7 @@ func (m *GetUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return GetUserRequestMultiError(errors)
@@ -1176,7 +1176,7 @@ func (m *DeleteUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return DeleteUserRequestMultiError(errors)

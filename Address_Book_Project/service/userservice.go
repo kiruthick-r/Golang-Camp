@@ -1,49 +1,51 @@
 package service
 
 import (
-	"Address_Book_Project/db"
 	"Address_Book_Project/proto"
+
+	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 func addUser(request *proto.AddUserRequest) *proto.AddUserResponse {
-	DB := db.Init()
 	DB.Create(&request.User)
-	res := &proto.AddUserResponse{User: request.User}
-	return res
+	return &proto.AddUserResponse{User: request.User}
 }
 
-func getUser(request *proto.GetUserRequest) *proto.GetUserResponse {
+func getUser(request *proto.GetUserRequest) (*proto.GetUserResponse, error) {
 	var user *proto.User
-	DB := db.Init()
-	DB.Find(&user, request.GetID())
-	res := &proto.GetUserResponse{User: user}
-	return res
+	result := DB.First(&user, request.GetId())
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &proto.GetUserResponse{User: user}, nil
 }
 
 func userList() *proto.UserListResponse {
 	var list []*proto.User
-	DB := db.Init()
 	DB.Find(&list)
-	res := &proto.UserListResponse{User: list}
-	return res
+	return &proto.UserListResponse{User: list}
 }
 
-func updateUser(request *proto.UpdateUserRequest) *proto.UpdateUserResponse {
+func updateUser(request *proto.UpdateUserRequest) (*proto.UpdateUserResponse, error) {
 	var user *proto.User
-	DB := db.Init()
-	DB.First(&user, request.User.GetID())
+	result := DB.First(&user, request.User.GetId())
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	user.Address = request.User.GetAddress()
 	user.Phone = request.User.GetPhone()
 	DB.Save(&user)
-	res := &proto.UpdateUserResponse{User: request.User}
-	return res
+	return &proto.UpdateUserResponse{User: request.User}, nil
 }
 
-func deleteUser(request *proto.DeleteUserRequest) *proto.DeleteUserResponse {
+func deleteUser(request *proto.DeleteUserRequest) (*proto.DeleteUserResponse, error) {
 	var user *proto.User
-	DB := db.Init()
-	DB.First(&user, request.GetID())
+	result := DB.First(&user, request.GetId())
+	if result.Error != nil {
+		return nil, result.Error
+	}
 	DB.Delete(&user)
-	res := &proto.DeleteUserResponse{User: user}
-	return res
+	return &proto.DeleteUserResponse{User: user}, nil
 }

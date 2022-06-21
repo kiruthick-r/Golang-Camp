@@ -1,8 +1,6 @@
-FROM golang:latest
+FROM golang:1.18
 WORKDIR /app
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
 COPY . .
+RUN go mod download
 EXPOSE 8081
-CMD ["go", "run", "main.go"]
+CMD ["go", "run", "server/main.go"]

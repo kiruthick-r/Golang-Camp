@@ -1,19 +1,25 @@
 package db
 
 import (
+	"fmt"
 	"log"
 
 	"Address_Book_Project/proto"
 
+	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func Init() *gorm.DB {
-	//dbURL := "postgres://root:password@localhost:5432/crud"
-	//dbURL := "postgres://root:password@database/crud?sslmode=disable"
-	//dbURL := "postgres://root:password@database:5432/crud"
-	dbURL := "host=database user=root password=password dbname=crud port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	viper.AddConfigPath("config")
+	viper.SetConfigName("config")
+	err := viper.ReadInConfig()
+	if err != nil {
+		log.Println(err)
+	}
+	//dbURL := fmt.Sprintf("postgres://%s:%s@localhost:%s/%s", viper.Get("database.user"), viper.Get("database.password"), viper.Get("server.port"), viper.Get("database.dbname"))
+	dbURL := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", viper.Get("server.host"), viper.Get("database.user"), viper.Get("database.password"), viper.Get("database.dbname"), viper.Get("server.port"))
 
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 

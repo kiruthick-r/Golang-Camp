@@ -98,7 +98,7 @@
         ]
       }
     },
-    "/user/{ID}": {
+    "/user/{id}": {
       "get": {
         "operationId": "Service_GetUser",
         "responses": {
@@ -117,7 +117,7 @@
         },
         "parameters": [
           {
-            "name": "ID",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -145,7 +145,7 @@
         },
         "parameters": [
           {
-            "name": "ID",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -209,7 +209,7 @@
     "protoUser": {
       "type": "object",
       "properties": {
-        "ID": {
+        "id": {
           "type": "string"
         },
         "username": {
