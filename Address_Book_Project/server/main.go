@@ -1,10 +1,10 @@
 package main
 
 import (
+	"Address_Book_Project/db"
 	"Address_Book_Project/proto"
 	"Address_Book_Project/service"
 	"context"
-	"flag"
 	"log"
 	"net"
 	"net/http"
@@ -12,23 +12,17 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-)
-
-var (
-	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:4040", "gRPC server endpoint")
 )
 
 func main() {
-	service.InitAddress()
+	service.DB = db.Init()
 	go func() {
 		mux := runtime.NewServeMux()
-		opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-		proto.RegisterServiceHandlerFromEndpoint(context.Background(), mux, *grpcServerEndpoint, opts)
-		log.Fatalln(http.ListenAndServe("localhost:8080", mux))
+		proto.RegisterServiceHandlerServer(context.Background(), mux, &service.Server{})
+		log.Fatalln(http.ListenAndServe(":8081", mux))
 	}()
 
-	listener, err := net.Listen("tcp", ":4040")
+	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		panic(err)
 	}

@@ -4,5 +4,11 @@ create:
 	protoc -I . --openapiv2_out . --openapiv2_opt logtostderr=true proto/service.proto
 	protoc -I . --go_opt=paths=source_relative --go_out=. --validate_out="lang=go:.." proto/service.proto
 
+gorm:
+	protoc --proto_path=. --proto_path=./options --gorm_out="engine=postgres:./proto" ./proto/service.proto
+
 run:
 	go run server/main.go
+
+compose:
+	docker compose up -d

@@ -1,0 +1,7 @@
+server:
+  port: "5432"
+  host: "database"
+database:
+  user: "root"
+  password: "password"
+  dbname: "crud"
