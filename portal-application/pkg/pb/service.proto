@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package portalapplication;
+
+import "google/api/annotations.proto";
+
+option go_package = "portal-application/pkg/pb;pb";
+
+message UserRequest {
+  string command = 1;
+  string value = 2;
+}
+
+message UserResponse {
+  string value = 1;
+}
+
+service PortalService {
+  rpc Command (UserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      get: "/user/{command}/{value}"
+    };
+  }
+}

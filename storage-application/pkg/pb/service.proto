@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package storageapplication;
+
+option go_package = "storage-application/pkg/pb;pb";
+
+import "options/gorm.proto";
+
+message StorageUserRequest {
+    option (gorm.opts).ormable = true;
+    int64 id = 1 [(gorm.field).tag = {type: "uuid" primary_key: true}];
+    string command = 2;
+    string value = 3;
+    string uptime = 4;
+}
+  
+message StorageUserResponse {
+    option (gorm.opts).ormable = true;
+    string value = 1;
+}
+  
+message CommandInfoUserRequest {
+    StorageUserRequest userrequest = 1;
+}
+  
+message CommandInfoUserResponse {
+    StorageUserResponse userresponse = 1;
+}
+  
+message CommandUptimeUserRequest {
+    StorageUserRequest userrequest = 1;
+}
+  
+message CommandUptimeUserResponse {
+    StorageUserResponse userresponse = 1;
+}
+  
+message CommandResetUserRequest {
+    StorageUserRequest userrequest = 1;
+}
+  
+message CommandResetUserResponse {
+    StorageUserResponse userresponse = 1;
+}
+  
+service StorageService {
+    rpc CommandInfo (CommandInfoUserRequest) returns (CommandInfoUserResponse);
+    rpc CommandUptime (CommandUptimeUserRequest) returns (CommandUptimeUserResponse);
+    rpc CommandReset (CommandResetUserRequest) returns (CommandResetUserResponse);
+}
